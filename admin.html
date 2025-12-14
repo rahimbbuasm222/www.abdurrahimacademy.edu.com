@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel - Upload Notice</title>
+    <style>
+        body { font-family: sans-serif; background: #e9ecef; padding: 50px; }
+        .admin-box { background: white; max-width: 500px; margin: 0 auto; padding: 30px; border-radius: 10px; box-shadow: 0 0 15px rgba(0,0,0,0.1); }
+        h2 { text-align: center; color: #333; }
+        input, button { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #ccc; border-radius: 5px; box-sizing: border-box;}
+        button { background: #006a4e; color: white; border: none; font-size: 16px; cursor: pointer; }
+        button:hover { background: #004d3a; }
+        .back-link { display: block; text-align: center; margin-top: 15px; text-decoration: none; color: #555; }
+    </style>
+</head>
+<body>
+
+    <div class="admin-box">
+        <h2>📢 নোটিশ আপলোড করুন</h2>
+        <form onsubmit="uploadNotice(event)">
+            <label>নোটিশের বিষয়:</label>
+            <input type="text" id="title" placeholder="যেমন: ঈদ উল ফিতরের ছুটি..." required>
+            
+            <label>তারিখ:</label>
+            <input type="date" id="date" required>
+            
+            <button type="submit">প্রকাশ করুন (Publish)</button>
+        </form>
+        <a href="/" class="back-link">⬅ মূল ওয়েবসাইটে ফিরে যান</a>
+    </div>
+
+    <script>
+        async function uploadNotice(event) {
+            event.preventDefault(); // পেজ রিলোড বন্ধ করা
+            
+            const title = document.getElementById('title').value;
+            const date = document.getElementById('date').value;
+
+            const response = await fetch('/api/notices', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ title, date })
+            });
+
+            if (response.ok) {
+                alert("✅ নোটিশ সফলভাবে ওয়েবসাইটে প্রকাশিত হয়েছে!");
+                document.getElementById('title').value = '';
+                document.getElementById('date').value = '';
+            } else {
+                alert("❌ সমস্যা হয়েছে!");
+            }
+        }
+    </script>
+</body>

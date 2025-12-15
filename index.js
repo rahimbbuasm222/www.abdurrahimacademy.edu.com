@@ -84,7 +84,7 @@ app.post('/api/notices', async (req, res) => {
         res.status(500).json({ message: "Error saving notice" });
     }
 });
-/ API: নোটিশ ডিলিট করা
+// API: নোটিশ ডিলিট করা
 app.delete('/api/notices/:id', async (req, res) => {
     try {
         const id = req.params.id;

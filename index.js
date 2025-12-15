@@ -84,6 +84,16 @@ app.post('/api/notices', async (req, res) => {
         res.status(500).json({ message: "Error saving notice" });
     }
 });
+/ API: নোটিশ ডিলিট করা
+app.delete('/api/notices/:id', async (req, res) => {
+    try {
+        const id = req.params.id;
+        await Notice.findByIdAndDelete(id);
+        res.json({ message: "নোটিশ ডিলিট করা হয়েছে!" });
+    } catch (error) {
+        res.status(500).json({ message: "ডিলিট করা সম্ভব হয়নি" });
+    }
+});
 
 // সার্ভার স্টার্ট
 app.listen(port, () => {

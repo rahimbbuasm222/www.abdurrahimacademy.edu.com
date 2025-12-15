@@ -101,13 +101,32 @@
             tableBody.innerHTML = '';
 
             data.forEach(notice => {
+                // তারিখ সুন্দর করে ফরম্যাট করা
+                const dateObj = new Date(notice.date);
+                const formattedDate = dateObj.toLocaleDateString('bn-BD');
+
                 const row = `<tr>
-                    <td>📄 ${notice.title}</td>
-                    <td>${notice.date}</td>
+                    <td>
+                        📄 ${notice.title} 
+                        <br>
+                        <!-- ডিলিট বাটন (শুধুমাত্র ভুল সংশোধনের জন্য) -->
+                        <button onclick="deleteNotice('${notice._id}')" style="color:red; cursor:pointer; border:none; background:none; font-size:12px;">[Delete]</button>
+                    </td>
+                    <td>${formattedDate}</td>
                 </tr>`;
                 tableBody.innerHTML += row;
             });
         }
+
+        // নোটিশ ডিলিট করার ফাংশন
+        async function deleteNotice(id) {
+            if(confirm("আপনি কি নিশ্চিত এই নোটিশটি ডিলিট করতে চান?")) {
+                await fetch('/api/notices/' + id, { method: 'DELETE' });
+                alert("নোটিশ মুছে ফেলা হয়েছে!");
+                loadNotices(); // লিস্ট রিফ্রেশ
+            }
+        }
+
         loadNotices();
     </script>
 </body>

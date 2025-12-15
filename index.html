@@ -93,40 +93,33 @@
     </footer>
 
     <script>
+        // নোটিশ লোড করার ফাংশন (পাবলিক ভিউ)
         async function loadNotices() {
-            const response = await fetch('/api/notices');
-            const data = await response.json();
-            
-            const tableBody = document.getElementById('notice-table-body');
-            tableBody.innerHTML = '';
+            try {
+                const response = await fetch('/api/notices');
+                const data = await response.json();
+                
+                const tableBody = document.getElementById('notice-table-body');
+                tableBody.innerHTML = ''; // আগের ডাটা ক্লিয়ার করা
 
-            data.forEach(notice => {
-                // তারিখ সুন্দর করে ফরম্যাট করা
-                const dateObj = new Date(notice.date);
-                const formattedDate = dateObj.toLocaleDateString('bn-BD');
+                data.forEach(notice => {
+                    // তারিখ সুন্দর করে ফরম্যাট করা (যেমন: 12/15/2025)
+                    const dateObj = new Date(notice.date);
+                    const formattedDate = dateObj.toLocaleDateString('bn-BD');
 
-                const row = `<tr>
-                    <td>
-                        📄 ${notice.title} 
-                        <br>
-                        <!-- ডিলিট বাটন (শুধুমাত্র ভুল সংশোধনের জন্য) -->
-                        <button onclick="deleteNotice('${notice._id}')" style="color:red; cursor:pointer; border:none; background:none; font-size:12px;">[Delete]</button>
-                    </td>
-                    <td>${formattedDate}</td>
-                </tr>`;
-                tableBody.innerHTML += row;
-            });
-        }
-
-        // নোটিশ ডিলিট করার ফাংশন
-        async function deleteNotice(id) {
-            if(confirm("আপনি কি নিশ্চিত এই নোটিশটি ডিলিট করতে চান?")) {
-                await fetch('/api/notices/' + id, { method: 'DELETE' });
-                alert("নোটিশ মুছে ফেলা হয়েছে!");
-                loadNotices(); // লিস্ট রিফ্রেশ
+                    // এখানে কোনো ডিলিট বাটন রাখা হয়নি
+                    const row = `<tr>
+                        <td>📄 ${notice.title}</td>
+                        <td>${formattedDate}</td>
+                    </tr>`;
+                    tableBody.innerHTML += row;
+                });
+            } catch (error) {
+                console.error("নোটিশ লোড করতে সমস্যা হচ্ছে:", error);
             }
         }
 
+        // পেজ লোড হলে অটোমেটিক নোটিশ দেখাবে
         loadNotices();
     </script>
 </body>

@@ -5,7 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Panel - Upload Notice</title>
     <style>
-        body { font-family: sans-serif; background: #e9ecef; padding: 50px; }
+        body { margin: 0; font-family: sans-serif; background: #e9ecef; }
+        
+        /* মেনুবারের ডিজাইন (নতুন যোগ করা হয়েছে) */
+        nav { background: #2c3e50; overflow: hidden; margin-bottom: 50px; }
+        nav a { float: left; display: block; color: white; text-align: center; padding: 14px 20px; text-decoration: none; }
+        nav a:hover { background-color: #ddd; color: black; }
+
+        /* অ্যাডমিন বক্সের ডিজাইন */
         .admin-box { background: white; max-width: 500px; margin: 0 auto; padding: 30px; border-radius: 10px; box-shadow: 0 0 15px rgba(0,0,0,0.1); }
         h2 { text-align: center; color: #333; }
         input, button { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #ccc; border-radius: 5px; box-sizing: border-box;}
@@ -16,6 +23,16 @@
 </head>
 <body>
 
+    <!-- মেনুবার (নতুন যোগ করা হয়েছে) -->
+    <nav>
+        <a href="/">হোম</a>
+        <a href="/about">আমাদের সম্পর্কে</a>
+        <a href="/services">সেবাসমূহ</a>
+        <a href="/gallery">গ্যালারি</a>
+        <a href="/admin" style="background: #e74c3c;">অ্যাডমিন প্যানেল</a>
+    </nav>
+
+    <!-- নোটিশ আপলোড ফর্ম -->
     <div class="admin-box">
         <h2>📢 নোটিশ আপলোড করুন</h2>
         <form onsubmit="uploadNotice(event)">
@@ -53,3 +70,4 @@
         }
     </script>
 </body>
+</html>

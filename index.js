@@ -45,6 +45,20 @@ app.get('/', (req, res) => {
 app.get('/admin', (req, res) => {
     res.sendFile(path.join(__dirname, 'admin.html'));
 });
+// আমাদের সম্পর্কে পেজ
+app.get('/about', (req, res) => {
+    res.sendFile(path.join(__dirname, 'about.html'));
+});
+
+// সেবাসমূহ পেজ
+app.get('/services', (req, res) => {
+    res.sendFile(path.join(__dirname, 'services.html'));
+});
+
+// গ্যালারি পেজ
+app.get('/gallery', (req, res) => {
+    res.sendFile(path.join(__dirname, 'gallery.html'));
+});
 
 // API: সব নোটিশ দেখা (Database থেকে আনবে)
 app.get('/api/notices', async (req, res) => {
